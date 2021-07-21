@@ -33,7 +33,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       const image_url: string = req.query.image_url;
       if (!image_url) {
         return res.status(422).json({
-          status: false,
+          success: false,
           message: 'image_url query parameter is required'
         });
       }
@@ -42,7 +42,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       res.sendFile(filteredpath, {}, function (err) {
         if (err) {
           return res.status(500).json({
-            status: false,
+            success: false,
             message: 'Error while sending the file'
           })
         } else {
@@ -51,7 +51,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       });
     } catch (err) {
       return res.status(500).json({
-        status: false,
+        success: false,
         message: err.message
       });
     }
@@ -61,7 +61,10 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
-    res.send("try GET /filteredimage?image_url={{}}")
+    res.json({
+      success: true,
+      message: "Welcome to the image filter server! try GET /filteredimage?image_url={{}}"
+    })
   } );
   
 
